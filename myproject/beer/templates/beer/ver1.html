@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+    integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href={% static 'css/style.css' %}>
+  <link rel="stylesheet" href={% static 'css/reset.css' %}>
+  <meta charset="UTF-8">
+  <title>경험기반추천</title>
+  <style>
+    h1 {
+      text-align: center;
+      color: black;
+    }
+
+    h3 {
+      text-align: center;
+      color: white;
+    }
+
+    img {
+      display: block;
+      margin: 0px auto;
+      width: 80%;
+      height: 70%;
+      border-radius: 3vw;
+    }
+
+    select {
+      width: 200px;
+      padding: .5em .5em;
+      border: 1px solid #999;
+      font-family: inherit;
+      background: url('arrow.jpg') no-repeat 95% 50%;
+      border-radius: 0px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    input[type=text] {
+      width: 190px;
+      height: 30px;
+      font-size: 20px;
+    }
+
+    body {
+      display: block;
+      background-image:url("{% static 'mg/ver1.jpg' %}");
+      background-size: 100% 200%;
+      background-color: #f8f8ff;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5vw;
+      padding-left: 4%;
+      padding-right: 4%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav-comtain">
+    <nav>
+      <a href="/">HOME</a>
+      <a href="{% url 'beer:ver2_select'%}">EXPERIENCE</a>
+      <a href="{% url 'beer:ver3_select'%}">THEME</a>
+      {% if login_session%}
+      <a href="{% url 'user:logout' %}"><button class="logout-btn">LOGOUT</button></a>
+      {% else %}
+      <a href="{% url 'user:login' %}"><button class="login-btn">LOGIN</button></a>
+      <a href="{% url 'user:register' %}"><button class="join-btn">JOIN</button></a>
+      {% endif %}
+      <div id="indicator"></div>
+    </nav>
+  </div>
+  <br />
+  <div class="header">
+    <a class="header-a" onclick="location.href='/'">너와 나드리</a>
+  </div>
+  <div class="ver1-header">
+    <h1 style="padding-top:3%;">경험했던 여행지 중 다시 가고싶은 여행지를 선택해주세요.
+      비슷한 여행지를 추천해 드립니다.
+    </h1>
+    <form method="POST" style="text-align:center;">
+      <br>
+      {% csrf_token %}
+
+      여행지 :
+      <select name="beer" style="margin-top:5%">
+        {% for tmp in beer_list %}
+        <option value='{{tmp}}'>{{tmp}}</option>
+        {% endfor %}
+        <input class="btn-submit" type="submit" value="Pick!">
+    </form>
+  </div>
+
+  <div id='contents' style="text-align:center; opacity:0.5; background-color:#F5F5F5; padding-top:10%;">
+    <img id="mg1" src="static/mg/airplane2.jpg">
+  </div>
+  </div>
+  <footer class="footer" style="margin-top:5vh;">
+    <div class="footer-addr">
+      <div style="text-align:left">
+        <a class="footer-logo" onclick="location.href='/'">너와 나드리</a>
+      </div>
+      <h2>Contact</h2>
+
+      <address>
+        <div style="text-align:left">
+          <a
+            href="https://www.google.com/maps/place/%EC%A4%91%EB%B6%80%EB%8C%80%ED%95%99%EA%B5%90+%EA%B3%A0%EC%96%91%EC%BA%A0%ED%8D%BC%EC%8A%A4+%E4%B8%AD%E9%83%A8%E5%A4%A7%E5%AD%B8%E6%A0%A1+Joongbu+University/data=!4m5!3m4!1s0x357c943e1caccd2b:0x56404200ca89df47!8m2!3d37.713203!4d126.8900751">
+            중부대학교 창의캠퍼스. 세종관 828호
+          </a><br>
+        </div>
+
+        <a class="footer-btn">문의하기</a>
+      </address>
+    </div>
+
+    <ul class="footer-p">
+      <li class="p-item">
+        <h2 class="p-title">너와 나드리</h2>
+
+        <ul class="p-ul">
+          <li>
+            <p>김병찬</p>
+          </li>
+
+          <li>
+            <p>정욱채</p>
+          </li>
+
+          <li>
+            <p>한정우</p>
+          </li>
+        </ul>
+      </li>
+
+      <li class="p-item">
+        <h2 class="p-title">사용기술</h2>
+
+        <ul class="p-ul">
+          <li>
+            <p>경험기반 추천받기</p>
+          </li>
+
+          <li>
+            <p>테마기반 추천받기</p>
+          </li>
+
+          <li>
+            <p>세션기반 추천받기</p>
+          </li>
+        </ul>
+      </li>
+
+      <li class="p-item">
+        <h2 class="p-title">지도교수</h2>
+
+        <ul class="p-ul">
+          <li>
+            <p>김송강 교수</p>
+          </li>
+
+          <li>
+            <p>황호진 교수</p>
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+
+    <div class="footer-sub">
+      <div class="sub-name">
+        <p>&copy; 2022 정보통신학과. 졸업작품 프로젝트.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

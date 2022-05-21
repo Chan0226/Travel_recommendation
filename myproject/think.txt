@@ -1,0 +1,1 @@
+Result 값을 세션에 저장 - 숙소보기를 A태그로 변경 - 세션에서 꺼내서 ORM 적용후 pagination

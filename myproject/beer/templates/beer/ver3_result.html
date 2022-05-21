@@ -1,0 +1,418 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <!--    <link rel= "stylesheet" type="text/css" href="{% static 'css/ver1_result.css' %}">-->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추천 결과</title>
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.5/pannellum.css" />
+
+    <script type="text/javascript" src="https://cdn.pannellum.org/2.5/pannellum.js"></script>
+
+    <link href="https://vjs.zencdn.net/7.1.0/video-js.css" rel="stylesheet" type="text/css">
+
+    <script src="https://vjs.zencdn.net/7.1.0/video.js"></script>
+    <script src="../../static/js/videojs-pannellum-plugin.js"></script>
+    <script src="../../static/js/toggle.js"></script>
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/reset.css' %}>
+    <link rel="stylesheet" href={% static 'css/toggle.css' %}>
+
+    <style>
+        h1 {
+            color: #000;
+            font-family: "jua";
+            font-size: 3vw;
+            margin-bottom: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-comtain">
+        <nav>
+            <a href="/">HOME</a>
+            <a href="{% url 'beer:ver2_select'%}">EXPERIENCE</a>
+            <a href="{% url 'beer:ver3_select'%}">THEME</a>
+            {% if login_session%}
+            <a href="{% url 'user:logout' %}"><button class="logout-btn">LOGOUT</button></a>
+            {% else %}
+            <a href="{% url 'user:login' %}"><button class="login-btn">LOGIN</button></a>
+            <a href="{% url 'user:register' %}"><button class="join-btn">JOIN</button></a>
+            {% endif %}
+            <div id="indicator"></div>
+        </nav>
+    </div>
+    <br />
+    <div class="header">
+        <a class="header-a" onclick="location.href='/'">너와 나드리</a>
+    </div>
+    <div class="ver3-wrapper">
+        <div class="ver3-result-contain">
+            <div>
+                <h1>첫 번째 추천 여행지는 {{ result.0 }}입니다.</h1>
+            </div>
+            <img class="result-img" src="static/mg/{{ result.0 }}.jfif" alt="사진은 수집중입니다😢">
+            <h2 class="result-h2">
+                <span id="toc-toggle14" onclick="openCloseToc14()">맛집 보러 가기</span>
+                <span id="toc-toggle" onclick="openCloseToc()">관련 영상 보기</span>
+                <span class="ver3-result-hotel" id="toc-toggle7" onclick="openCloseToc7()">숙소 보러 가기</span>
+                <div id="toc-content">
+                    <video id="result0" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none"
+                        style="width:50vw; height:55vh; margin:0 auto; display:block" crossorigin="anonymous">
+                        <source src="/static/md/{{result.0}}.webm" type="video/webm" />
+                        <source src="/static/md/{{result.0}}.mp4" type="video/mp4" />
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to
+                            a web browser that <a href="http://videojs.com/html5-video-support/"
+                                target="_blank">supports HTML5 video</a>
+                        </p>
+
+                        <script>
+                            videojs('result0', {
+                                plugins: {
+                                    pannellum: {}
+                                }
+                            });
+
+                        </script>
+                    </video>
+                </div>
+            </h2>
+            <div id="toc-content7">
+                <p>
+                    {% if hotels1.count > 0 %}
+                    {% for a in hotels1 %}
+                <div class="hotel-contain">
+                    <div class="hotel-contain-left">
+                        <a href='{{a.url}}'><img class="hotel-img" src="static/mg/hotel/{{ a.name }}.jpg"
+                                alt="사진은 수집중입니다😢"></a><br><br>
+                    </div>
+                    <div class="hotel-contain-right">
+                        <h1>{{a.name}}</h1>
+                        <div class="classfication">{{a.classfications}}</div>
+                        <p class="rate-and-review">👍{{a.rating}} ✍리뷰{{a.review}}</p>
+                        <div class="hotel-cost">{{a.cost}}</div>
+                        <a href='{{a.url}}' class="hotel-book">예약하기</a>
+                    </div>
+                    <hr width="70%">
+                </div>
+                {% endfor %}
+                {% endif %}
+                </p>
+            </div>
+
+        </div>
+        <div class="ver3-result-contain">
+            <div>
+                <h1>두 번째 추천 여행지는 {{ result.1 }} 입니다.</h1>
+            </div>
+            <img class="result-img" src="static/mg/{{ result.1 }}.jfif" alt="사진은 수집중입니다😢">
+            <h2 class="result-h2"><span id="toc-toggle15" onclick="openCloseToc15()">맛집 보러 가기</span><span
+                    id="toc-toggle1" onclick="openCloseToc1()">관련 영상 보기</span><span class="ver3-result-hotel"
+                    id="toc-toggle8" onclick="openCloseToc8()">숙소 보러 가기</span>
+                <div id="toc-content1">
+                    <video id="result1" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none"
+                        style="width:50vw; height:55vh; margin:0 auto; display:block" crossorigin="anonymous">
+                        <source src="/static/md/{{result.1}}.webm" type="video/webm" />
+                        <source src="/static/md/{{result.1}}.mp4" type="video/mp4" />
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to
+                            a web browser that <a href="http://videojs.com/html5-video-support/"
+                                target="_blank">supports HTML5 video</a>
+                        </p>
+
+                        <script>
+                            videojs('result1', {
+                                plugins: {
+                                    pannellum: {}
+                                }
+                            });
+
+                        </script>
+                    </video>
+                </div>
+            </h2>
+            <div id="toc-content8">
+                <p>
+                    {% if hotels2.count > 0 %}
+                    {% for a in hotels2 %}
+                <div class="hotel-contain">
+                    <div class="hotel-contain-left">
+                        <a href='{{a.url}}'><img class="hotel-img" src="static/mg/hotel/{{ a.name }}.jpg"
+                                alt="사진은 수집중입니다😢"></a><br><br>
+                    </div>
+                    <div class="hotel-contain-right">
+                        <h1>{{a.name}}</h1>
+                        <div class="classfication">{{a.classfications}}</div>
+                        <p class="rate-and-review">👍{{a.rating}} ✍리뷰{{a.review}}</p>
+                        <div class="hotel-cost">{{a.cost}}</div>
+                        <a href='{{a.url}}' class="hotel-book">예약하기</a>
+                    </div>
+                    <hr width="70%">
+                </div>
+                {% endfor %}
+                {% endif %}
+                </p>
+            </div>
+            <div id="toc-content15">
+                <p>
+                    {% if restaurant2.count > 0 %}
+                    {% for a in restaurant2 %}
+                <div class="hotel-contain">
+                    <div class="hotel-contain-left">
+                        <a href='{{a.url}}'><img class="hotel-img" src="static/mg/restaurant/{{ a.name }}.jpg"
+                                alt="사진은 수집중입니다😢"></a><br><br>
+                    </div>
+                    <div class="hotel-contain-right">
+                        <h1>{{a.name}}</h1>
+                        <div class="classfication">{{a.classfications}}</div>
+                        <p class="rate-and-address">💗{{a.rating}} 📮주소 {{a.address}} </p>
+                        <p class="restaurant-hour">⏰영업시간{{a.hour}}</p>
+                        <a href='{{a.url}}' class="restaurant-book">정보보기</a>
+                    </div>
+                    <hr width="70%">
+                </div>
+                {% endfor %}
+                {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="ver3-result-contain">
+            <div>
+                <h1>세 번째 추천 여행지는 {{ result.2 }} 입니다.</h1>
+            </div>
+            <img class="result-img" src="static/mg/{{ result.2 }}.jfif" alt="사진은 수집중입니다😢">
+            <h2 class="result-h2"><span id="toc-toggle16" onclick="openCloseToc16()">맛집 보러 가기</span><span
+                    id="toc-toggle2" onclick="openCloseToc2()">관련 영상 보기</span><span class="ver3-result-hotel"
+                    id="toc-toggle9" onclick="openCloseToc9()">숙소 보러 가기</span>
+                <div id="toc-content2">
+                    <video id="result2" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none"
+                        style="width:50vw; height:55vh; margin:0 auto; display:block;" crossorigin="anonymous">
+                        <source src="/static/md/{{result.2}}.webm" type="video/webm" />
+                        <source src="/static/md/{{result.2}}.mp4" type="video/mp4" />
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to
+                            a web browser that <a href="http://videojs.com/html5-video-support/"
+                                target="_blank">supports HTML5 video</a>
+                        </p>
+
+                        <script>
+                            videojs('result2', {
+                                plugins: {
+                                    pannellum: {}
+                                }
+                            });
+
+                        </script>
+                    </video>
+                </div>
+                <div id="toc-content9">
+                    <p>
+                        {% if hotels3.count > 0 %}
+                        {% for a in hotels3 %}
+                    <div class="hotel-contain">
+                        <div class="hotel-contain-left">
+                            <a href='{{a.url}}'><img class="hotel-img" src="static/mg/hotel/{{ a.name }}.jpg"
+                                    alt="사진은 수집중입니다😢"></a><br><br>
+                        </div>
+                        <div class="hotel-contain-right">
+                            <h1>{{a.name}}</h1>
+                            <div class="classfication">{{a.classfications}}</div>
+                            <p class="rate-and-review">👍{{a.rating}} ✍리뷰{{a.review}}</p>
+                            <div class="hotel-cost">{{a.cost}}</div>
+                            <a href='{{a.url}}' class="hotel-book">예약하기</a>
+                        </div>
+                        <hr width="70%">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+                <div id="toc-content16">
+                    <p>
+                        {% if restaurant3.count > 0 %}
+                        {% for a in restaurant3 %}
+                    <div class="hotel-contain">
+                        <div class="hotel-contain-left">
+                            <a href='{{a.url}}'><img class="hotel-img" src="static/mg/restaurant/{{ a.name }}.jpg"
+                                    alt="사진은 수집중입니다😢"></a><br><br>
+                        </div>
+                        <div class="hotel-contain-right">
+                            <h1>{{a.name}}</h1>
+                            <div class="classfication">{{a.classfications}}</div>
+                            <p class="rate-and-address">💗{{a.rating}} 📮주소 {{a.address}} </p>
+                            <p class="restaurant-hour">⏰영업시간{{a.hour}}</p>
+                            <a href='{{a.url}}' class="restaurant-book">정보보기</a>
+                        </div>
+                        <hr width="70%">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+        </div>
+
+        <div class="ver3-result-contain">
+            <div>
+                <h1>네 번째 추천 여행지는 {{ result.3 }} 입니다.</h1>
+            </div>
+            <img class="result-img" src="static/mg/{{ result.3 }}.jfif" alt="사진은 수집중입니다😢">
+            <h2 class="result-h2"><span id="toc-toggle17" onclick="openCloseToc17()">맛집 보러 가기</span><span
+                    id="toc-toggle3" onclick="openCloseToc3()">관련 영상 보기</span><span class="ver3-result-hotel"
+                    id="toc-toggle10" onclick="openCloseToc10()">숙소 보러 가기</span>
+                <div id="toc-content3">
+                    <video id="result3" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none"
+                        style="width:50vw; height:55vh; margin:0 auto; display:block;" crossorigin="anonymous">
+                        <source src="/static/md/{{result.3}}.webm" type="video/webm" />
+                        <source src="/static/md/{{result.3}}.mp4" type="video/mp4" />
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to
+                            a web browser that <a href="http://videojs.com/html5-video-support/"
+                                target="_blank">supports HTML5 video</a>
+                        </p>
+
+                        <script>
+                            videojs('result3', {
+                                plugins: {
+                                    pannellum: {}
+                                }
+                            });
+
+                        </script>
+                    </video>
+                </div>
+                <div id="toc-content10">
+                    <p>
+                        {% if hotels4.count > 0 %}
+                        {% for a in hotels4 %}
+                    <div class="hotel-contain">
+                        <div class="hotel-contain-left">
+                            <a href='{{a.url}}'><img class="hotel-img" src="static/mg/hotel/{{ a.name }}.jpg"
+                                    alt="사진은 수집중입니다😢"></a><br><br>
+                        </div>
+                        <div class="hotel-contain-right">
+                            <h1>{{a.name}}</h1>
+                            <div class="classfication">{{a.classfications}}</div>
+                            <p class="rate-and-review">👍{{a.rating}} ✍리뷰{{a.review}}</p>
+                            <div class="hotel-cost">{{a.cost}}</div>
+                            <a href='{{a.url}}' class="hotel-book">예약하기</a>
+                        </div>
+                        <hr width="70%">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+                <div id="toc-content17">
+                    <p>
+                        {% if restaurant4.count > 0 %}
+                        {% for a in restaurant4 %}
+                    <div class="hotel-contain">
+                        <div class="hotel-contain-left">
+                            <a href='{{a.url}}'><img class="hotel-img" src="static/mg/restaurant/{{ a.name }}.jpg"
+                                    alt="사진은 수집중입니다😢"></a><br><br>
+                        </div>
+                        <div class="hotel-contain-right">
+                            <h1>{{a.name}}</h1>
+                            <div class="classfication">{{a.classfications}}</div>
+                            <p class="rate-and-address">💗{{a.rating}} 📮주소 {{a.address}} </p>
+                            <p class="restaurant-hour">⏰영업시간{{a.hour}}</p>
+                            <a href='{{a.url}}' class="restaurant-book">정보보기</a>
+                        </div>
+                        <hr width="70%">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-addr">
+            <div style="text-align:left">
+                <a class="footer-logo" onclick="location.href='/'">너와 나드리</a>
+            </div>
+            <h2>Contact</h2>
+
+            <address>
+                <div style="text-align:left">
+                    <a
+                        href="https://www.google.com/maps/place/%EC%A4%91%EB%B6%80%EB%8C%80%ED%95%99%EA%B5%90+%EA%B3%A0%EC%96%91%EC%BA%A0%ED%8D%BC%EC%8A%A4+%E4%B8%AD%E9%83%A8%E5%A4%A7%E5%AD%B8%E6%A0%A1+Joongbu+University/data=!4m5!3m4!1s0x357c943e1caccd2b:0x56404200ca89df47!8m2!3d37.713203!4d126.8900751">
+                        중부대학교 창의캠퍼스. 세종관 828호
+                    </a><br>
+                </div>
+
+                <a class="footer-btn">문의하기</a>
+            </address>
+        </div>
+
+        <ul class="footer-p">
+            <li class="p-item">
+                <h2 class="p-title">너와 나드리</h2>
+
+                <ul class="p-ul">
+                    <li>
+                        <p>김병찬</p>
+                    </li>
+
+                    <li>
+                        <p>정욱채</p>
+                    </li>
+
+                    <li>
+                        <p>한정우</p>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="p-item">
+                <h2 class="p-title">사용기술</h2>
+
+                <ul class="p-ul">
+                    <li>
+                        <p>경험기반 추천받기</p>
+                    </li>
+
+                    <li>
+                        <p>테마기반 추천받기</p>
+                    </li>
+
+                    <li>
+                        <p>세션기반 추천받기</p>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="p-item">
+                <h2 class="p-title">지도교수</h2>
+
+                <ul class="p-ul">
+                    <li>
+                        <p>김송강 교수</p>
+                    </li>
+
+                    <li>
+                        <p>황호진 교수</p>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+        <div class="footer-sub">
+            <div class="sub-name">
+                <p>&copy; 2022 정보통신학과. 졸업작품 프로젝트.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

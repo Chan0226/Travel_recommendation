@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/reset.css' %}>
+    <link rel="stylesheet" href={% static 'css/forms.css' %}>
+    <title>로그인</title>
+</head>
+
+<body>
+    {% comment %} <div class="nav-comtain">
+        <nav>
+            <a href="/">HOME</a>
+            <a href="{% url 'ver2'%}">EXPERIENCE</a>
+            <a href="{% url 'ver3'%}">THEME</a>
+            {% if login_session%}
+            <a href="{% url 'user:logout' %}"><button class="logout-btn">LOGOUT</button></a>
+            {% else %}
+            <a href="{% url 'user:login' %}"><button class="login-btn">LOGIN</button></a>
+            <a href="{% url 'user:register' %}"><button class="join-btn">JOIN</button></a>
+            {% endif %}
+            <div id="indicator"></div>
+        </nav>
+    </div>
+    <br />
+    <div class="header">
+        <a class="header-a" onclick="location.href='/'">너와 나드리</a>
+    </div> {% endcomment %}
+    <div class="header-body">
+        <span class="form-header" onclick="location.href='/'">너와 나드리</span>
+    </div>
+    <form action="" method="POST" class="login-form">
+        <div class="login-html">
+            <div class="login-head">LOGIN</div>
+            {% csrf_token %}
+
+            {% for form in forms %}
+            <div>
+                <label for="{{ form.id_for_label }}" class="form-font">{{ form.label }}</label>
+                <br />
+                {{ form }}
+            </div>
+            {% endfor %}
+
+            {% if error %}
+            {{ error }}
+            {% endif %}
+            <div style="display:inline-block">
+                <button type="submit" name="login-submit" value="login" class="form-btn">로그인</button>
+                <br />
+                <a class="form-a" href="/user/register/">회원가입</a>
+            </div>
+        </div>
+    </form>
+</body>
+
+
+</html>

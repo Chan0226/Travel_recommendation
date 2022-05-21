@@ -1,0 +1,132 @@
+@font-face {
+    font-family:"jua";
+    src: url(../font/BMJUA_ttf.ttf);
+}
+*,:after,:before{box-sizing:border-box}
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+a{color:inherit;text-decoration:none}
+
+
+.form-header {
+    display:block;
+    margin-top: 5%;
+    color: #77cdd3;
+    text-align: center;
+    font-size: 7vw;
+    font-family: "jua";
+    margin-bottom: 3%;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login-form {
+	width:100%;
+	margin:auto;
+	max-width:525px;
+	min-height:670px;
+	position:relative;
+	background:url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    border-radius: 2vw;
+}
+.login-html{
+    width:100%;
+	height:100%;
+	position:absolute;
+	padding:90px 70px 50px 70px;
+	background:rgba(95, 163, 168, 0.9);
+    border-radius: 2vw;
+}
+.login-head{
+    font-weight: bold;
+    color: #fff;
+    font-family: "jua";
+    font-size: 2vw;
+    padding-bottom: 4vh;
+}
+.join-form {
+	width:100%;
+	margin:auto;
+	max-width:525px;
+	min-height:670px;
+	position:relative;
+	background:url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    border-radius: 2vw;
+}
+.join-html{
+    width:100%;
+	height:100%;
+	position:absolute;
+	padding:90px 70px 50px 70px;
+	background:rgba(95, 163, 168, 0.9);
+    border-radius: 2vw;
+}
+.join-head{
+    font-weight: bold;
+    color: #fff;
+    font-family: "jua";
+    font-size: 2vw;
+    padding-bottom: 4vh;
+}
+.form-font {
+    font-weight: bold;
+    color:rgb(179, 179, 179);
+	font-size:12px;
+    font-family: "jua";
+    font-size: 1vw;
+}
+input[type=text] {
+    border:none;
+    width: 22vw;
+	padding:15px 20px;
+	border-radius:25px;
+    background-color: #ffffff1a;
+    color:#aaa;
+    margin-bottom: 2vh;
+}
+input[type=password] {
+    border:none;
+    width: 22vw;
+	padding:15px 20px;
+	border-radius:25px;
+    background-color: #ffffff1a;
+    color:#aaa;
+    margin-bottom: 2vh;
+}
+input[type=email]{
+    border:none;
+    width: 22vw;
+	padding:15px 20px;
+	border-radius:25px;
+    background-color: #ffffff1a;
+    color:#aaa;
+    margin-bottom: 2vh;
+}
+.form-btn {
+    outline: 0;
+    border: 0;
+    width: 22vw;
+    height: 5vh;
+    border-radius: 1vw;
+    box-sizing: border-box;
+    font-family: "jua";
+    font-size: 1.2vw;
+}
+.form-a {
+    margin-top: 2vh;
+    display: inline-block;
+    text-decoration: none !important;
+    outline: 0;
+    border: 0;
+    width: 22vw;
+    height: 5vh;
+    border-radius: 1vw;
+    background-color: #efefef;
+    padding-top: 3%;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: "jua";
+    font-size: 1.2vw;
+}

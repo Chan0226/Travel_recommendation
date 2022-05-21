@@ -1,0 +1,14 @@
+scikit-learn 설치하려면
+numpy, scipy 설치
+pip3 install --pre -i https://pypi.anaconda.org/scipy-wheels-nightly/simple scipy
+
+python -m pip install --no-use-pep517 scikit-learn"==0.24.2"
+
+
+도시를 고른다.
+-> 고른 도시와 비슷한 곳을 추천한다.
+
+함수 이름 = recom_city
+고르는 도시 = city_list
+
+recom_city(city_list):

@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <!--    <link rel= "stylesheet" type="text/css" href="{% static 'css/ver1_result.css' %}">-->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추천 결과</title>
+    <link rel="stylesheet" href="https://cdn.pannellum.org/2.5/pannellum.css" />
+    <script type="text/javascript" src="https://cdn.pannellum.org/2.5/pannellum.js"></script>
+
+    <link href="https://vjs.zencdn.net/7.1.0/video-js.css" rel="stylesheet" type="text/css">
+
+    <script src="https://vjs.zencdn.net/7.1.0/video.js"></script>
+    <script src="../../static/js/videojs-pannellum-plugin.js"></script>
+    <script src="../../static/js/toggle.js"></script>
+
+    <link rel="stylesheet" href={% static 'css/style.css' %}>
+    <link rel="stylesheet" href={% static 'css/reset.css' %}>
+    <link rel="stylesheet" href={% static 'css/toggle.css' %}>
+
+
+    <style>
+        h1 {
+            color: #000;
+            font-family: "jua";
+            font-size: 3vw;
+            margin-bottom: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-comtain">
+        <nav>
+            <a href="/">HOME</a>
+            <a href="{% url 'beer:ver2_select'%}">EXPERIENCE</a>
+            <a href="{% url 'beer:ver3_select'%}">THEME</a>
+            {% if login_session%}
+            <a href="{% url 'user:logout' %}"><button>로그아웃</button></a>
+            {% else %}
+            <a href="{% url 'user:login' %}"><button>로그인</button></a>
+            <a href="{% url 'user:register' %}"><button>회원가입</button></a>
+            {% endif %}
+            <div id="indicator"></div>
+        </nav>
+    </div>
+    <br />
+    <div class="header">
+        <a class="header-a" onclick="location.href='/'">너와 나드리</a>
+    </div>
+    <div class="ver3-wrapper">
+        <div class="ver3-result-contain">
+            <div>
+                <h1>첫 번째 추천 여행지는 {{ result.0 }} 입니다.</h1>
+            </div>
+            <img class="result-img" src="static/mg/place/{{ result.0 }}.jfif" alt="사진은 수집중입니다😢">
+            <h2 class="result-h2"><span id="toc-toggle30" onclick="openCloseToc30()">맛집 보러 가기</span><span
+                    id="toc-toggle4" onclick="openCloseToc4()">관련 영상 보기</span><span class="ver3-result-hotel"
+                    id="toc-toggle11" onclick="openCloseToc11()">숙소 보러 가기</span>
+                <div id="toc-content4">
+                    <video id="result0" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none"
+                        style="width:50vw; height:55vh; margin:0 auto; display:block;" crossorigin="anonymous">
+                        <source src="/static/md/{{result.0}}.webm" type="video/webm" />
+                        <source src="/static/md/{{result.0}}.mp4" type="video/mp4" />
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to
+                            a web browser that <a href="http://videojs.com/html5-video-support/"
+                                target="_blank">supports HTML5 video</a>
+                        </p>
+
+                        <script>
+                            videojs('result0', {
+                                plugins: {
+                                    pannellum: {}
+                                }
+                            });
+
+                        </script>
+                    </video>
+                </div>
+            </h2>
+
+
+            <div id="toc-content11">
+                <form method="GET">
+                    <input type="radio" name="rating" value="rating">평점 순
+                    <input type="radio" name="distance" value="distance">거리 순
+                    <input type="radio" name="cost" value="cost_up">가격 높은순
+                    <input type="radio" name="cost" value="cost_down">가격 낮은순
+                    <select name="sort" id="sort">
+                        <option value="hotell" id="hotell">호텔</option>
+                        <option value="hostel" id="hostel">호스텔</option>
+                        <option value="guesthouse" id="guesthouse">게스트하우스</option>
+                        <option value="motel" id="motel">모텔</option>
+                        <option value="resort" id="resort">리조트</option>
+                        <option value="pension" id="pension">펜션</option>
+                    </select>
+                    <button class="btn btn-primary" type="submit" value="">정렬</button>
+                </form>
+                <p>
+                    {% if content_list.count > 0 %}
+                    {% for a in posts %}
+                <div class="hotel-contain">
+                    <div class="hotel-contain-left">
+
+                        <div class="col-4">
+
+                        </div>
+                        <a href='{{a.url}}'><img class="hotel-img" src='{{a.img}}' alt="사진은 수집중입니다😢"></a><br><br>
+                    </div>
+                    <div class="hotel-contain-right">
+                        <h1>{{a.name}}</h1>
+                        <div class="classfication">{{a.classfications}}</div>
+                        <div class="distance"></div>
+                        <div class="explain"></div>
+                        <p class="rate-and-review">👍{{a.rating}} {{a.distance}} {{a.address}}
+                            {{a.kind}} {{a.clean}} {{a.conv}} <br> {{a.explain}}</p>
+                        <div class="hotel-cost">{{a.cost}}</div>
+                        <div class="hotel-book"><input type="submit" ,value="찜하기"></div>
+
+                    </div>
+                    <hr width="70%">
+                    {% endfor %}
+                    {% endif %}
+                    </p>
+                    <div style="text-align:center">
+                        <div class="pagination">
+                            {% if posts.has_previous %}
+                            <button name="page" value="1">First</button>
+                            <button name="page" value="{{posts.previous_page_number}}">Previous</button>
+                            {% endif %}
+
+                            <span>{{posts.number}} / {{posts.paginator.num_pages}}</span>
+
+                            {% if posts.has_next %}
+                            <button name="page" value="{{posts.next_page_number}}">Next</button>
+                            <button name="page" value="{{posts.next_page_number}}">Last</a>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="toc-content30">
+                <form method="GET">
+                    <input type="radio" name="rating1" value="rating1">평점 순
+                    <input type="radio" name="review" value="review">리뷰 개수
+                    <button class="btn btn-primary" type="submit" value="">정렬</button>
+                </form>
+                <p>
+                    {% if content_list1.count > 0 %}
+                    {% for a in posts1 %}
+                <div class="hotel-contain">
+                    <div class="hotel-contain-left">
+                        <a href='{{a.url}}'><img class="hotel-img" src="{{ a.img }}" alt="사진은 수집중입니다😢"></a><br><br>
+                    </div>
+                    <div class="hotel-contain-right">
+                        <h1>{{a.name}}</h1>
+                        <div class="classfication">{{a.classfications}}</div>
+                        <p class="rate-and-address">💗{{a.rating}} 📮주소 {{a.address}} </p>
+                        <p class="restaurant-hour">⏰영업시간{{a.explain}}</p>
+                        <div class="restaurant-book">예약하기</div>
+                    </div>
+                    <hr width="70%">
+                </div>
+                {% endfor %}
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호텔정보</title>
+</head>
+
+<body>
+    <!-- 호텔 -->
+    <p>
+        {% if hotels1.count > 0 %}
+        {% for a in hotels1 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.review}}, {{a.classfications}}, {{a.cost}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/hotel/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p>
+    <br>
+    <p>
+        {% if hotels2.count > 0 %}
+        {% for a in hotels2 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.review}}, {{a.classfications}}, {{a.cost}}</h2> <a href='{{a.url}}'>
+        <img src="static/mg/hotel/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p><br>
+    <p>
+        {% if hotels3.count > 0 %}
+        {% for a in hotels3 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.review}}, {{a.classfications}}, {{a.cost}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/hotel/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p><br>
+    <p>
+        {% if hotels4.count > 0 %}
+        {% for a in hotels4 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.review}}, {{a.classfications}}, {{a.cost}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/hotel/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+
+
+    <!-- 식당 -->
+    <br><br><br>
+    <p>
+        {% if restaurant1.count > 0 %}
+        {% for a in restaurant1 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.classfications}}, {{a.address}}, {{a.hour}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/restaurant/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p>
+    <br>
+    <p>
+        {% if restaurant2.count > 0 %}
+        {% for a in restaurant2 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.classfications}}, {{a.address}}, {{a.hour}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/restaurant/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p><br>
+    <p>
+        {% if restaurant3.count > 0 %}
+        {% for a in restaurant3 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.classfications}}, {{a.address}}, {{a.hour}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/restaurant/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p><br>
+    <p>
+        {% if restaurant4.count > 0 %}
+        {% for a in restaurant4 %}
+    <h1>{{a.name}}</h1>
+    <h2>{{a.rating}}, {{a.classfications}}, {{a.address}}, {{a.hour}}</h2> <a href='{{a.url}}'><img
+            src="static/mg/restaurant/{{ a.name }}.jpg" alt="사진은 수집중입니다😢"></a><br><br>
+    {% endfor %}
+    {% endif %}
+    </p><br>
+</body>
+
+</html>

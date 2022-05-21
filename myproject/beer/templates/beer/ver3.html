@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+    integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+  <script src="../../static/js/slide.js"></script>
+  <link rel="stylesheet" href={% static 'css/style.css' %}>
+  <link rel="stylesheet" href={% static 'css/reset.css' %}>
+  <link rel="stylesheet" hrer={% static 'css/forms.css' %}>
+  <link rel="icon" type="image/x-icon" href={% static 'favicon/favicon.ico' %}>
+  <meta charset="UTF-8">
+  <title>테마별 추천</title>
+  <style>
+    h1 {
+      text-align: center;
+      color: white;
+    }
+
+    img {
+      display: block;
+      margin: 0px auto;
+      width: 40%;
+    }
+
+    select {
+      width: 200px;
+      padding: .5em .5em;
+      border: 1px solid #999;
+      font-family: inherit;
+      background: url('arrow.jpg') no-repeat 95% 50%;
+      border-radius: 0px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    input[type=text] {
+      width: 190px;
+      height: 30px;
+      font-size: 20px;
+    }
+
+    body {
+      display: block;
+      background-size: 100% 200%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav-comtain">
+    <nav>
+      <a href="/">HOME</a>
+      <a href="{% url 'beer:ver2_select'%}">EXPERIENCE</a>
+      <a href="{% url 'beer:ver3_select'%}">THEME</a>
+      {% if login_session%}
+      <a href="{% url 'user:logout' %}"><button class="logout-btn">LOGOUT</button></a>
+      {% else %}
+      <a href="{% url 'user:login' %}"><button class="login-btn">LOGIN</button></a>
+      <a href="{% url 'user:register' %}"><button class="join-btn">JOIN</button></a>
+      {% endif %}
+      <div id="indicator"></div>
+    </nav>
+  </div>
+  <br />
+  <div class="header">
+    <a class="header-a" onclick="location.href='/'">너와 나드리</a>
+  </div>
+  <div class="ver3-contain">
+    <form class="ver3-form" method="POST">
+      {% csrf_token %}
+      <ul class="ver3-from-contain">
+        <li class="question" id="q1">
+          <div class="ver3-form-in">
+            <span class="ver3-form-num">Q 01.</span>
+            <div class="ver3-form-head">여행을 갈때 함께한다면?</div>
+            <label class="ver3-form-label" for="form-answer-1"><input id="form-answer-1" type="radio" name="together"
+                value="alone" onclick="nextlabel1();"><span class="form-content-p">난 죽어도 혼자!</span></label></br>
+            <label class="ver3-form-label" for="form-answer-2"><input id="form-answer-2" type="radio" name="together"
+                value="date" onclick="nextlabel1();"><span class="form-content-p">연인과 함께</span></label></br>
+            <label class="ver3-form-label" for="form-answer-3"><input id="form-answer-3" type="radio" name="together"
+                value="family" onclick="nextlabel1();"><span class="form-content-p">가족들이랑</span></label>
+          </div>
+        </li>
+        <li class="question" id="q2">
+          <div class="ver3-form-in">
+            <span class="ver3-form-num">Q 02.</span>
+            <div class="ver3-form-head">어떤 장소가 좋나요?</div>
+            <label class="ver3-form-label" for="form-answer-4"><input id="form-answer-4" type="radio" name="style"
+                value="foreign" onclick="nextlabel2();"><span class="form-content-p">이국적 스타일</span></label></br>
+            <label class="ver3-form-label" for="form-answer-5"><input id="form-answer-5" type="radio" name="style"
+                value="tradition" onclick="nextlabel2();"><span class="form-content-p">전통 스타일</span></label>
+          </div>
+        </li>
+        <li class="question" id="q3">
+          <div class="ver3-form-in">
+            <span class="ver3-form-num">Q 03.</span>
+            <div class="ver3-form-head">걷는 걸 좋아하나요?</div>
+            <label class="ver3-form-label" for="form-answer-6"><input id="form-answer-6" type="radio" name="walking"
+                value="walk" onclick="nextlabel3();"><span class="form-content-p">산책이 좋아요~</span></label></br>
+            <label class="ver3-form-label" for="form-answer-7"><input id="form-answer-7" type="radio" name="walking"
+                value="drive" onclick="nextlabel3();"><span class="form-content-p">차가 좋아요</span></label>
+          </div>
+        </li>
+
+
+        <li class="question" id="q4">
+          <div class="ver3-form-in">
+            <span class="ver3-form-num">Q 04.</span>
+            <div class="ver3-form-head">이번 여행의 테마는?</div>
+            <label class="ver3-form-label" for="form-answer-8"><input id="form-answer-8" type="radio" name="theme"
+                value="food" onclick="nextlabel4();"><span class="form-content-p">먹방</span></label></br>
+            <label class="ver3-form-label" for="form-answer-9"><input id="form-answer-9" type="radio" name="theme"
+                value="picture" onclick="nextlabel4();"><span class="form-content-p">사진찍기</span></label></br>
+            <label class="ver3-form-label" for="form-answer-10"><input id="form-answer-10" type="radio" name="theme"
+                value="sleep" onclick="nextlabel4();"><span class="form-content-p">여유로운 휴식</span></label>
+          </div>
+        </li>
+        <li class="question" id="q5">
+          <div class="ver3-form-in">
+            <span class="ver3-form-num">Q 05.</span>
+            <div class="ver3-form-head">어떤 스타일의 뷰를 좋아하나요?</div>
+            <label class="ver3-form-label" for="r11"><input id="r11" type="radio" name="view" value="city"
+                onclick="nextlabel5();"><span class="form-content-p">시티</span></label></br>
+            <label class="ver3-form-label" for="form-answer-12"><input id="form-answer-12" type="radio" name="view"
+                value="nature" onclick="nextlabel5();"><span class="form-content-p">자연</span></label>
+          </div>
+        </li>
+        <li class="question" id="q6">
+          <div class="ver3-form-in">
+            <div class="btn-section">
+              <button class="btn-submit" type="submit" ><a href="{% url 'beer:ver3_session'%}"><Pick/a></button>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+  <div id='contents' style="text-align:center;">
+    {% comment %} <img id="mg1" src="static/mg/ver3.png"> {% endcomment %}
+    <div>
+
+    </div>
+  </div>
+
+  <footer class="footer" style="margin-top:56vh;">
+    <div class="footer-addr">
+      <div style="text-align:left">
+        <a class="footer-logo" onclick="location.href='/'">너와 나드리</a>
+      </div>
+      <h2>Contact</h2>
+
+      <address>
+        <div style="text-align:left">
+          <a
+            href="https://www.google.com/maps/place/%EC%A4%91%EB%B6%80%EB%8C%80%ED%95%99%EA%B5%90+%EA%B3%A0%EC%96%91%EC%BA%A0%ED%8D%BC%EC%8A%A4+%E4%B8%AD%E9%83%A8%E5%A4%A7%E5%AD%B8%E6%A0%A1+Joongbu+University/data=!4m5!3m4!1s0x357c943e1caccd2b:0x56404200ca89df47!8m2!3d37.713203!4d126.8900751">
+            중부대학교 창의캠퍼스. 세종관 828호
+          </a><br>
+        </div>
+
+        <a class="footer-btn">문의하기</a>
+      </address>
+    </div>
+
+    <ul class="footer-p">
+      <li class="p-item">
+        <h2 class="p-title">너와 나드리</h2>
+
+        <ul class="p-ul">
+          <li>
+            <p>김병찬</p>
+          </li>
+
+          <li>
+            <p>정욱채</p>
+          </li>
+
+          <li>
+            <p>한정우</p>
+          </li>
+        </ul>
+      </li>
+
+      <li class="p-item">
+        <h2 class="p-title">사용기술</h2>
+
+        <ul class="p-ul">
+          <li>
+            <p>경험기반 추천받기</p>
+          </li>
+
+          <li>
+            <p>테마기반 추천받기</p>
+          </li>
+
+          <li>
+            <p>세션기반 추천받기</p>
+          </li>
+        </ul>
+      </li>
+
+      <li class="p-item">
+        <h2 class="p-title">지도교수</h2>
+
+        <ul class="p-ul">
+          <li>
+            <p>김송강 교수</p>
+          </li>
+
+          <li>
+            <p>황호진 교수</p>
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+
+    <div class="footer-sub">
+      <div class="sub-name">
+        <p>&copy; 2022 정보통신학과. 졸업작품 프로젝트.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
