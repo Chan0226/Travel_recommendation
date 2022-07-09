@@ -21,6 +21,7 @@
 7. 여행지 VR 탐색
 ![KakaoTalk_20220613_150754323](https://user-images.githubusercontent.com/84282676/177470033-fed7531b-68fc-431a-a7b2-c8b31a53be13.jpg)
 
-8. 전체 실행 요약 동영상
-https://user-images.githubusercontent.com/84282676/177470147-92090d16-bbb8-4a7c-a831-ea30a63b66b5.mp4
+8. VR 영상 실행
+https://user-images.githubusercontent.com/84282676/178094059-3b8fe5af-fe54-40ca-ab39-8d8de4408eb9.mp4
+
 
