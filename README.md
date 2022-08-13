@@ -1,5 +1,5 @@
 # Recommendation_System
-여행지 추천시스템
+### 추천시스템 알고리즘을 이용한 여행지 추천시스템
 1. 메인화면
 ![home](https://user-images.githubusercontent.com/84282676/177469514-c379cc7a-ea6d-4f7e-b50c-59836ed42a18.PNG)
 
